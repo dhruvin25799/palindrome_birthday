@@ -207,6 +207,7 @@ function clickHandler(e) {
                 resultDiv.innerText = `The nearest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed by ${ctr1} days.`;
             }
         } else {
+            resultDiv.style = "border: 3px dotted #ff4c68";
             resultDiv.innerText = "Your birthday is a palindrome! You're special!!!";
         }
     }
