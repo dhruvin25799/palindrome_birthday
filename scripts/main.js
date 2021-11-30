@@ -173,7 +173,7 @@ var resultDiv = document.querySelector("#result");
 
 function clickHandler(e) {
     var bdayString = bdayInput.value;
-
+    resultDiv.innerHTML = "Processing your birthday!";
     if (bdayString !== "") {
         var date = bdayString.split("-");
         var yyyy = date[0];
@@ -197,19 +197,26 @@ function clickHandler(e) {
             }
         }
 
-        if (!isPalindrome) {
-            const [ctr1, nextDate] = getNextPalindromeDate(date);
-            const [ctr2, prevDate] = getPreviousPalindromeDate(date);
+        setTimeout(function() {
+            if (!isPalindrome) {
+                const [ctr1, nextDate] = getNextPalindromeDate(date);
+                const [ctr2, prevDate] = getPreviousPalindromeDate(date);
+                var days;
 
-            if (ctr1 > ctr2) {
-                resultDiv.innerText = `The nearest palindrome date is ${prevDate.day}-${prevDate.month}-${prevDate.year}, you missed by ${ctr2} days.`;
+                if (ctr1 > ctr2) {
+                    days = ctr2 == "1" ? "day" : "days";
+                    resultDiv.innerText = `The nearest palindrome date is ${prevDate.day}-${prevDate.month}-${prevDate.year}, you missed by ${ctr2} ${days}.`;
+                } else {
+                    days = ctr1 == "1" ? "day" : "days";
+                    resultDiv.innerText = `The nearest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed by ${ctr1} ${days}.`;
+                }
             } else {
-                resultDiv.innerText = `The nearest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed by ${ctr1} days.`;
+                resultDiv.style = "border: 3px dotted #ff4c68";
+                resultDiv.innerText = "Your birthday is a palindrome! You're special!!!";
             }
-        } else {
-            resultDiv.style = "border: 3px dotted #ff4c68";
-            resultDiv.innerText = "Your birthday is a palindrome! You're special!!!";
-        }
+        }, 2000);
+
+
     }
 }
 
